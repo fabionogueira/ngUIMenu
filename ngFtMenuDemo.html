@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ngFtMenu Demo</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link href="../../angular/angular-csp.css" rel="stylesheet" type="text/css"/>
+        <script src="../../angular/angular.min.js" type="text/javascript"></script>
+        <script src="../../ngFront.js" type="text/javascript"></script>
+        
+        <link href="ngFtMenu.css" rel="stylesheet" type="text/css"/>
+        <script src="../ngFtDOM/ngFtDOM.js" type="text/javascript"></script>
+        <script src="../ngFtPopup/ngFtPopup.js" type="text/javascript"></script>
+        <script src="ngFtMenu.js" type="text/javascript"></script>
+        
+        <style>
+            [ng-ft-menu] .ft-menu-content{
+                background:#fff;
+                border: solid 1px #c0c0c0;
+            }
+            [ng-ft-menu] a{
+                display: block;
+            }
+            .ft-menu-show{
+                background: #9E9E9E;
+            }
+        </style>
+    </head>
+    <body ng-app="MyApp" ng-controller="MyAppController">
+        <div>
+            <h1>FtMenu Demo</h1>
+            <button ng-click="showMenu($event, 'left|top')">show menu (left|top)</button>
+            <button ng-click="showMenu($event, 'right|top')">show menu (right|top)</button>
+            <button ng-click="showMenu($event, 'left|bottom')">show menu (left|bottom)</button>
+            <button ng-click="showMenu($event, 'right|bottom')">...</button>
+        </div>
+        
+        <div ng-ft-menu="menu1">
+            <div class="ft-menu-content">
+                <a href="#L1">Link 01</a>
+                <a href="#L2">Link 02</a>
+                <a href="#L3">Link 03</a>
+            </div>
+        </div>
+        
+        <script>
+            angular.module('MyApp',['ngFront'])
+            .controller('MyAppController', ['$scope', 'FtMenu', function($scope, FtMenu){
+                $scope.showMenu = function(event, position){
+                    FtMenu('menu1').show({
+                        offsetY: position==='right|bottom' ? -16 : 0,
+                        offsetX: position==='right|bottom' ? -6 : 0,
+                        origin: event.target,
+                        position: position
+                    });
+                };
+            }]);
+        </script>
+    </body>
+</html>
